@@ -2,7 +2,7 @@ import optparse, random
 
 
 def cypher(msg):
-    text = msg
+    text = ''.join(random.sample(msg,len(msg)))
     charstr = text
     fingerprint = []
     chars = []
@@ -32,28 +32,28 @@ parser = optparse.OptionParser()
 
 parser.add_option('-t', '--t',
     action="store", dest="text",
-    help="\nuse plain text (must use qoutation marks ('))", default=False)
+    help="use plain text", default=False)
 parser.add_option('-f', '--f',
     action="store", dest="file",
-    help="\nget text (or encrypted text when using decypher) from a file", default=False)
+    help="get text (or encrypted text when using decypher) from a file", default=False)
 parser.add_option('-c', '--c',
     action="store", dest="cypher",
-    help="\ncypher (encrypt)", default=False)
+    help="cypher (encrypt)", default=False)
 parser.add_option('-d', '--d',
     action="store", dest="decypher",
-    help="\ndecypher (decrypt)", default=False)
+    help="decypher (decrypt)", default=False)
 parser.add_option('--wt', '--wt',
     action="store", dest="write",
-    help="\nspecify a file name to create that stores encrypted/decrypted (depending on operation) text.", default=False)
+    help="specify a file name to create that stores encode/decoded (depending on operation) text.", default=False)
 parser.add_option('--ft', '--ft',
     action="store", dest="fingerprint",
-    help="\nspecify a fingerprint needed to decode the text (must use qoutation marks (')) (if --d parameter is being used).", default=False)
+    help="specify a fingerprint needed to decode the text (if --d parameter is being used).", default=False)
 parser.add_option('--ftf', '--ftf',
     action="store", dest="fingerprint_file",
-    help="\nspecify a fingerprint needed to decode the text (if --d parameter is being used). Must accept a file which contains fingerprint in the current directory.", default=False)
+    help="specify a fingerprint needed to decode the text (if --d parameter is being used). Must accept a file which contains fingerprint in the current directory.", default=False)
 parser.add_option('--wf', '--wf',
     action="store", dest="wf",
-    help="\nspecify a file name to create that stores the fingerprint", default=False)
+    help="specify a file name to create that stores the fingerprint", default=False)
 options, args = parser.parse_args()
 if options.decypher and options.cypher:
      print("you cant specify both --t and --f (text, file) you must choose only one")
@@ -64,8 +64,6 @@ if options.cypher:
             msg = file.read()
             file.close()
             i = cypher(msg)
-            if not options.wf and not options.write:
-                    print("\nfingerprint:\n\n " + str(i[0]) + "\n\n encrypted text:\n\n" + str(i[1]))
             if options.write:
                 fp = open(options.write, 'w')
                 fp.write(str(i[1]))
@@ -85,8 +83,6 @@ if options.cypher:
     else:
         if options.text:
             i = cypher(options.text)
-            if not options.wf and not options.write:
-                    print("\nfingerprint:\n\n " + str(i[0]) + "\n\n encrypted text:\n\n" + str(i[1]))
             if options.write:
                 fp = open(options.write, 'w')
                 fp.write(str(i[1]))
@@ -122,14 +118,13 @@ elif options.decypher:
             if options.write:
                 fp = open(options.write, 'w')
                 fp.write(i)
-                print("decrypted message written to file: " + options.write)
+                print("decoded message written to file: " + options.write)
                 fp.close()
             else:
-                print("\ndecrypted message:\n\n " + i)
+                print("decoded message:\n " + i)
     else:
         if options.text:
             i = decypher(rsa,options.text)
-            print("\ndecrypted message:\n\n " + i)
         else:
             print("you must select text (--t) or a file (--f).")
             exit()
