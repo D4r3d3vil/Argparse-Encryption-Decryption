@@ -32,7 +32,7 @@ parser = optparse.OptionParser()
 
 parser.add_option('-t', '--t',
     action="store", dest="text",
-    help="use plain text", default=False)
+    help="use plain text (must use qoutation marks)", default=False)
 parser.add_option('-f', '--f',
     action="store", dest="file",
     help="get text (or encrypted text when using decypher) from a file", default=False)
@@ -44,7 +44,7 @@ parser.add_option('-d', '--d',
     help="decypher (decrypt)", default=False)
 parser.add_option('--wt', '--wt',
     action="store", dest="write",
-    help="specify a file name to create that stores encode/decoded (depending on operation) text.", default=False)
+    help="specify a file name to create that stores encrypted/decrypted (depending on operation) text.", default=False)
 parser.add_option('--ft', '--ft',
     action="store", dest="fingerprint",
     help="specify a fingerprint needed to decode the text (if --d parameter is being used).", default=False)
