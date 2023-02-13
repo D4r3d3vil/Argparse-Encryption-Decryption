@@ -64,39 +64,35 @@ if options.cypher:
             msg = file.read()
             file.close()
             i = cypher(msg)
-            if str(options.write):
-                fp = open(str(options.write), 'w')
+            if options.write:
+                fp = open(options.write, 'w')
                 fp.write(str(i[1]))
-                if not str(options.wf) and str(options.write):
-                     print("\nfingerprint:\n\n " + str(i[0]) + "\n\n encrypted text written to: " + str(options.write))
-                else:
-                     print("\nencoded text written to file: " + str(options.write) + "\n\nfingerprint written to: " + str(options.wf))
-            if str(options.wf):
-                 ft = open(str(options.wf), 'w')
+            if options.wf:
+                 ft = open(options.wf, 'w')
                  ft.write(str(i[0]))
-                 if not str(options.wf) and str(options.write):
-                     print("\nencrypted text:\n\n " + str(i[1]) + "\n\n fingerprint written to: " + str(options.wf))
-                 else:
-                     print("\nencoded text written to file: " + str(options.write) + "\n\nfingerprint written to: " + str(options.wf))
-            if not str(options.write) and not str(options.wf):
+            if not options.write and not options.wf:
                 print("\nfingerprint:\n\n " + str(i[0]) + "\nencrypted text:\n\n " + str(i[1]))
+            else:
+                if options.write and not options.wf:
+                        print("\nencrypted text:\n\n " + str(i[1]) + "\n\n fingerprint written to: " + options.wf)
+                else:
+                        print("\nencoded text written to file: " + options.write + "\n\nfingerprint written to: " + options.wf)
     else:
         if options.text:
             i = cypher(options.text)
-            if str(options.write):
-                fp = open(str(options.write), 'w')
+            if options.write:
+                fp = open(options.write, 'w')
                 fp.write(str(i[1]))
-                if not str(options.wf) and str(options.write):
-                     print("\nfingerprint:\n\n " + str(i[0]) + "\n\n encrypted text written to: " + str(options.write))
-                else:
-                     print("\nencoded text written to file: " + str(options.write) + "\n\nfingerprint written to: " + str(options.wf))
-            if str(options.wf):
-                 ft = open(str(options.wf), 'w')
+            if options.wf:
+                 ft = open(options.wf, 'w')
                  ft.write(str(i[0]))
-                 if not str(options.wf) and str(options.write):
-                     print("\nencrypted text:\n\n " + str(i[1]) + "\n\n fingerprint written to: " + str(options.wf))
-                 else:
-                     print("\nencoded text written to file: " + str(options.write) + "\n\nfingerprint written to: " + str(options.wf))
+            if not options.write and not options.wf:
+                print("\nfingerprint:\n\n " + str(i[0]) + "\nencrypted text:\n\n " + str(i[1]))
+            else:
+                if options.write and options.wf:
+                        print("\nencoded text written to file: " + options.write + "\n\nfingerprint written to: " + options.wf)
+                else:
+                        print("\nencrypted text written to: " + str(i[1]) + "\n\nfingerprint written to: " + options.wf)
         else:
             print("you must select text (--t) or a file (--f).")
 elif options.decypher:
@@ -115,10 +111,10 @@ elif options.decypher:
             msg = file.read()
             file.close()
             i = decypher(rsa,msg)
-            if str(options.write):
-                fp = open(str(options.write), 'w')
+            if options.write:
+                fp = open(options.write, 'w')
                 fp.write(i)
-                print("decoded message written to file: " + str(options.write))
+                print("decoded message written to file: " + options.write)
                 fp.close()
             else:
                 print("decoded message:\n " + i)
