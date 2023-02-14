@@ -56,6 +56,7 @@ options, args = parser.parse_args()
 if options.decypher and options.cypher:
      print("you cant specify both --t and --f (text, file) you must choose only one")
      exit()
+#options.write is specified by the parameter --wt, options.fingerprint_file: --ftf, options.fingerprint: --ft
 if options.write != False:
     if options.write == options.wf:
         print("\nincorrect usage: \n\n--wf and --wt cannot have the same value\n")
